@@ -50,6 +50,13 @@ const useStyles = makeStyles(() => ({
 
 }));
 
+/**
+ * A common component for rendering of articles in a flexible grid. Provides a functionality to load
+ * additional articles by triggering a callback.
+ *
+ * @param props articles, load more callback and other necessary props.
+ * @constructor
+ */
 const ArticlesComponents = (props: {
     articles: Article[],
     loadMoreDisabled: boolean,

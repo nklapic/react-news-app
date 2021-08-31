@@ -2,12 +2,13 @@ import {RouteConfig} from '../../common/router/RouterType';
 import {RouteIds} from '../../common/router/RouteIds';
 import {connect} from 'react-redux';
 import {RootState} from '../../state/Store';
-import {fetchTopHeadlines, isMorePagesAvailable, TopHeadlinesState} from '../../state/topheadlines/TopHeadlinesReducer';
+import {fetchTopHeadlines, TopHeadlinesState} from '../../state/topheadlines/TopHeadlinesReducer';
 import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import ArticlesComponents from '../../common/components/ArticlesComponents';
 import {setArticle} from '../../state/article/ArticleReducer';
 import {Article} from '../../common/NewsApi';
+import {isMorePagesAvailable} from '../../state/utils';
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -60,5 +61,5 @@ const mapDispatchToProps = {
     setArticle
 }
 
-const TopNewsComponent = connect(mapStateToProps, mapDispatchToProps)(Component);
-export default TopNewsComponent;
+const HeadlinesComponent = connect(mapStateToProps, mapDispatchToProps)(Component);
+export default HeadlinesComponent;

@@ -1,5 +1,11 @@
 const {createProxyMiddleware} = require('http-proxy-middleware');
 
+/***
+ * Definition of the proxy to the NewsAPI.
+ * This enable usage of API without hostname (in services) and takes care of the CORS policy.
+ *
+ * @param app
+ */
 module.exports = function(app) {
     app.use(
         '/top-headlines',

@@ -8,9 +8,9 @@ import {connect} from 'react-redux';
 import {RootState} from '../../state/Store';
 import {searchForNews, SearchSortBy, SearchState} from '../../state/search/SearchReducer';
 import ArticlesComponents from '../../common/components/ArticlesComponents';
-import {isMorePagesAvailable} from '../../state/topheadlines/TopHeadlinesReducer';
 import {setArticle} from '../../state/article/ArticleReducer';
 import {Article} from '../../common/NewsApi';
+import {isMorePagesAvailable} from '../../state/utils';
 
 const useStyles = makeStyles({
     searchContainer: {

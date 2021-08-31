@@ -1,9 +1,10 @@
-import {BasicMap} from '../CommonTypes';
+import {BasicMap, QueryParams} from '../CommonTypes';
 
-export interface QueryParams {
-    [key: string]: any;
-}
-
+/**
+ * Defines interface for the backend calls.
+ * Basically, only request method is needed as custom implementation can be made
+ * for various HTTP requests.
+ */
 export interface RestClient {
     /**
      * Triggers rest request
@@ -15,6 +16,10 @@ export interface RestClient {
     }): Promise<T>;
 }
 
+/**
+ * Implementation of request method from {@link RestClient}
+ * using {@link fetch} API.
+ */
 export class FetchRestClient implements RestClient {
 
     protected static readonly CONTENT_TYPE_HEADER = 'Content-Type';
@@ -32,6 +37,13 @@ export class FetchRestClient implements RestClient {
             fetch(path, this._assembleOptions(headers)));
     }
 
+    /**
+     * Waits for the request to finish and tries to parse the response as json.
+     * If request fails with error code, or json parsing has failed undefined is returned
+     *
+     * @param task request promise
+     * @protected
+     */
     protected async _handleResponse<R>(task: Promise<Response>): Promise<R> {
         try {
             const response = await task;
@@ -48,12 +60,10 @@ export class FetchRestClient implements RestClient {
     }
 
     /**
-     * Create options for Dojo xhr request.
+     * Create options for fetch request request. Since there is no requirements to PUT
+     * data to the API, every request is considered as GET.
      *
-     * @param method the request method.
-     * @param data body object or string to be POST'ed.
-     * @param restOptions parameter to define various options.
-     * @returns options for the dojo rest request.
+     * @returns customerHeaders additional headers to be added to the request.
      * @private
      */
     protected _assembleOptions(customHeaders?: BasicMap<string>): RequestInit {
@@ -63,7 +73,6 @@ export class FetchRestClient implements RestClient {
             headers.set(FetchRestClient.CONTENT_TYPE_HEADER, 'application/json');
         }
 
-        // custom heraders may override globalHeaders
         if (customHeaders) {
             for (const customHeader in customHeaders) {
                 if (!headers.has(customHeader)) {
@@ -105,7 +114,7 @@ export function composeQuery(queryParams: QueryParams): string {
 }
 
 /**
- * adds query tuple from given params delimited by '=' to given array of tuples.
+ * Adds query tuple from given params delimited by '=' to given array of tuples.
  * @param queryArrayParams array of query tuples
  * @param paramName parameter name for tuple, will be uriEncoded
  * @param value parameter value for tuple

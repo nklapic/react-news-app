@@ -86,6 +86,12 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+/**
+ * Defines structure of the application to be shown.
+ * Renders menu, header and prepares applications routes.
+ *
+ * @constructor
+ */
 export default function App() {
     const classes = useStyles();
     const theme = useTheme();
@@ -138,7 +144,7 @@ export default function App() {
                     }),
                 }}
             >
-                <div className={classes.toolbar}>
+                <div className={classes.toolbar} data-testid={"drawer"}>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
@@ -149,7 +155,7 @@ export default function App() {
                         <ListItemIcon><HomeRounded/></ListItemIcon>
                         <ListItemText primary="Home" />
                     </ListItem>
-                    <ListItem button key="Search" onClick={() => AppRouter.navigate(RouteIds.search)}>
+                    <ListItem button key="Search" data-testid={"search"} onClick={() => AppRouter.navigate(RouteIds.search)}>
                         <ListItemIcon><SearchRounded /></ListItemIcon>
                         <ListItemText primary="Search" />
                     </ListItem>

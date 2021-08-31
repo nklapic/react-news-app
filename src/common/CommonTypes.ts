@@ -1,9 +1,9 @@
 /**
- * Type of object which holds path parameters. No proper definition in React router, this was embedded in the
- * {@link generatePath} function definition.
+ * A basic map for query parameters. Query parameter is a key value pair.
+ * Key is of type string, but value can be number, string, boolean, array or whatever.
  */
-export interface PathParams {
-    [key: string]: string | number | boolean;
+export interface QueryParams {
+    [key: string]: any;
 }
 
 /**

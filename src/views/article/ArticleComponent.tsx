@@ -43,7 +43,16 @@ const useStyles = makeStyles({
     }
 })
 
-const Component = (props: {article: Article}) => {
+/**
+ * A component that renders content of an article.
+ * Since we can't distinguish between articles by their id, we don't a nice way of initializing the fetch request
+ * from the component itself. It can happen that article to show is not in the store, which leads to an error.
+ * With that reason if article to be shown is not defined, a redirect is made to homepage.
+ *
+ * @param props
+ * @constructor
+ */
+export const ArticleBaseComponent = (props: {article: Article}) => {
 
     const {article} = props;
     const classes = useStyles();
@@ -52,7 +61,6 @@ const Component = (props: {article: Article}) => {
         AppRouter.navigate(RouteIds.home);
         return null;
     }
-
 
     return (
         <div className={classes.container}>
@@ -102,5 +110,5 @@ const mapStateToProps = (state: RootState) => ({
     article: state.article
 })
 
-const ArticleComponent = connect(mapStateToProps, {})(Component);
+const ArticleComponent = connect(mapStateToProps, {})(ArticleBaseComponent);
 export default ArticleComponent;
